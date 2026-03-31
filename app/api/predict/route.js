@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import { supabaseServer } from "@/lib/supabaseServer";
 import { getOrSetUserId } from "@/lib/userCookie";
-import { predictRa, predictRz } from "@/lib/model";
+import { predictRa, predictRz, generateProfileFromRaRz } from "@/lib/profilometerModel";
 
 export async function POST(req) {
   try {
@@ -19,6 +19,13 @@ export async function POST(req) {
 
     const ra = Number(predictRa(vc, ap, fn, addNoise));
     const rz = Number(predictRz(vc, ap, fn, addNoise));
+    const profile = generateProfileFromRaRz({
+      raTarget: ra,
+      rzTarget: rz,
+      nPoints: 800,
+      lengthMm: 4.0,
+      addNoise,
+    });
 
     const supa = supabaseServer();
     const { data, error } = await supa
@@ -33,7 +40,7 @@ export async function POST(req) {
       .single();
 
     if (error) return NextResponse.json({ error: error.message }, { status: 500 });
-    return NextResponse.json(data);
+    return NextResponse.json({ ...data, profile });
   } catch (e) {
     return NextResponse.json({ error: e?.message || "Server error" }, { status: 500 });
   }
