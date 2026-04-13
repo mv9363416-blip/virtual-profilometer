@@ -133,7 +133,7 @@ export default function Home() {
   const formOk = vcOk && apOk && fnOk;
   async function loadHistory() {
     try {
-      const r = await fetch(`${API}/measurements`, { cache: "no-store", credentials: "include" });
+      const r = await fetch("/api/measurements", { cache: "no-store", credentials: "include" });
       const data = await r.json();
       setHistory(Array.isArray(data) ? data : []);
       console.log("HISTORY LOADED:", Array.isArray(data), Array.isArray(data) ? data.length : data);
@@ -185,7 +185,7 @@ export default function Home() {
 
   async function onPredict() {
     if(!formOk) {
-      setErr("Заполни vc, ap, fn (только числа).");
+      setErr("vc, ap, fn.");
       return;
     }
 
@@ -205,7 +205,7 @@ export default function Home() {
         add_noise: addNoise,
       };
 
-      const r = await fetch(`${API}/profile`, {
+      const r = await fetch("/api/predict", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(body),
