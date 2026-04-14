@@ -241,8 +241,8 @@ export default function Home() {
   async function onClear() {
     setErr("");
     try {
-      console.log("SENDING DELETE", `${API}/measurements`);
-      const r = await fetch(`${API}/measurements`, { method: "DELETE", credentials: "include", });
+      console.log("SENDING DELETE", ("/api/measurements");
+      const r = await fetch(("/api/measurements", { method: "DELETE", credentials: "include", });
       console.log("DELETE STATUS", r.status);
 
       if (!r.ok) {
