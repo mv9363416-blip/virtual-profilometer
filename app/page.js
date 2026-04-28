@@ -118,6 +118,7 @@ export default function Home() {
   const [showFinalMetrics, setShowFinalMetrics] = useState(false);
   const [showProfilometerDescription, setShowProfilometerDescription] = useState(false);
   const [showGraphDescription, setShowGraphDescription] = useState(false);
+  const [showResultDescription, setShowResultDescription] = useState(false);
   const scanDurationMs = 8000;
   const probeTravelPx = 42;
   const probeAnimation = `probeSideMove ${scanDurationMs}ms linear 1`;
@@ -750,27 +751,52 @@ export default function Home() {
 
           {/* Result cards */}
           {result && (
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <Card className="p-5">
+            <Card className="p-5">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+
+                {/* Ra */}
+                <div className="space-y-2">
                   <div className="text-sm text-gray-600">Ra</div>
+
                   <div className="text-3xl font-bold">
                     {showFinalMetrics ? Number(result.ra).toFixed(3) : "—"}
                   </div>
-                  <div className="text-xs text-gray-500 mt-2">
+
+                  <div className="text-xs text-gray-500">
                     {t.time}: {result.timestamp}
                   </div>
-                </Card>
+                </div>
 
-                <Card className="p-5">
+                {/* Rz */}
+                <div className="space-y-2 md:border-l md:pl-6">
                   <div className="text-sm text-gray-600">Rz</div>
+
                   <div className="text-3xl font-bold">
                     {showFinalMetrics ? Number(result.rz).toFixed(3) : "—"}
                   </div>
-                  <div className="text-xs text-gray-500 mt-2">
+
+                  <div className="text-xs text-gray-500">
                     vc={result.vc}, ap={result.ap}, fn={result.fn}, {t.distribution}={String(result.add_noise)}
                   </div>
-                </Card>
+                </div>
               </div>
+
+              <div className="mt-5 pt-4 border-t">
+                <button
+                  type="button"
+                  onClick={() => setShowResultDescription((v) => !v)}
+                  className="text-sm font-medium px-3 py-1.5 border rounded-lg text-gray-700 hover:bg-gray-100"
+                >
+                  {showResultDescription ? t.hideDescription : t.showDescription}
+                </button>
+
+                {showResultDescription && (
+                  <div className="mt-3 rounded-xl border bg-gray-50 p-4 text-sm text-gray-700 leading-6">
+                    описание
+                  </div>
+                )}
+              </div>
+            </Card>
           )}
 
           {/* History */}
