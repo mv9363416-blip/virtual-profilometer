@@ -41,6 +41,8 @@ const translations = {
         "Parameter Rz vyjadruje výškovú charakteristiku profilu ako rozdiel medzi typickými najvyššími vrcholmi a najhlbšími priehlbinami.",
     graphDesc4:
         "Graf slúži ako názorná pomôcka na pochopenie toho, z ktorých častí profilu vznikajú výsledné hodnoty Ra a Rz.",
+    resultDescription:
+        "Parameter Ra vyjadruje priemernú aritmetickú odchýlku profilu povrchu od strednej čiary. Jednoducho povedané, ukazuje priemernú veľkosť nerovností povrchu.\n\nParameter Rz vyjadruje výškový rozdiel medzi typickými najvyššími vrcholmi a najhlbšími priehlbinami profilu. V porovnaní s Ra viac zvýrazňuje výrazné nerovnosti povrchu.",
   },
   en: {
     title: "Virtual Profilometer",
@@ -80,6 +82,8 @@ const translations = {
         "The Rz parameter expresses the height characteristic of the profile as the difference between typical highest peaks and deepest valleys.",
     graphDesc4:
         "The graph serves as an educational aid to help the user understand which parts of the profile contribute to the resulting Ra and Rz values.",
+    resultDescription:
+        "The Ra parameter represents the arithmetic average deviation of the surface profile from the mean line. In simple terms, it shows the average size of the surface irregularities.\n\nThe Rz parameter represents the height difference between typical highest peaks and deepest valleys of the profile. Compared with Ra, it emphasizes more pronounced surface irregularities.",
   }
 };
 
@@ -791,8 +795,8 @@ export default function Home() {
                 </button>
 
                 {showResultDescription && (
-                  <div className="mt-3 rounded-xl border bg-gray-50 p-4 text-sm text-gray-700 leading-6">
-                    описание
+                  <div className="mt-3 rounded-xl border bg-gray-50 p-4 text-sm text-gray-700 leading-6 whitespace-pre-line">
+                    {t.resultDescription}
                   </div>
                 )}
               </div>
